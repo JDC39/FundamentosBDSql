@@ -1,0 +1,91 @@
+# 1 ¿Para qué sirven las bases de datos?
+
+res archivos distintos, dos formatos diferentes, nombres de columna que no coinciden y una hora perdida copiando y pegando sin certeza de que los totales cuadren. Ese escenario es más común de lo que parece, y la solución no está en otra fórmula de Excel. Está en aprender a diseñar y trabajar con bases de datos de forma estructurada, con propósito y sobre un caso real.
+
+¿Por qué las hojas de cálculo tienen un límite?
+
+Cuando la información de un negocio crece, las hojas de cálculo dejan de ser suficientes. Cruzar datos a mano entre archivos genera errores, duplicados y resultados poco confiables. Las bases de datos resuelven ese problema porque organizan la información con reglas claras, relaciones definidas y una estructura que se puede consultar de manera precisa [0:12].
+
+Esto no es exclusivo de programadores o equipos de sistemas. Detrás de cada compra en línea, cada historial médico y cada reporte financiero hay una base de datos. La diferencia entre que funcione bien o mal depende de quién la diseñó y cómo lo hizo [0:36].
+
+¿Qué es Tienda Latam y por qué importa como proyecto?
+
+Todo el aprendizaje gira alrededor de Tienda Latam, una empresa de comercio electrónico ficticia con clientes, productos, pedidos y todo lo que eso implica [0:50]. Este proyecto funciona como hilo conductor: cada concepto, cada instrucción y cada decisión de diseño tiene un propósito concreto dentro de ese negocio.
+
+Trabajar con un caso aplicado permite entender no solo el "cómo" sino el "por qué" de cada paso. En lugar de memorizar comandos aislados, cada acción resuelve una necesidad real.
+
+¿Cómo se estructura el recorrido de aprendizaje?
+
+El camino sigue una secuencia lógica que va de lo conceptual a lo práctico:
+
+Entender las limitaciones de las hojas de cálculo y por qué se necesitan bases de datos.
+Aprender a modelar datos antes de escribir una sola línea de código [1:07].
+Comprender cómo se relacionan las tablas entre sí.
+Trabajar con SQL: crear tablas, cargar datos, consultar, filtrar, agrupar y conectar información.
+Cerrar con un reporte de ventas construido desde cero que integra todo lo aprendido [1:18].
+¿Por qué los fundamentos importan más de lo que parecen?
+
+Una trampa frecuente es aprender a usar herramientas sin comprender qué hay debajo. Todo funciona hasta que algo falla, o hasta que alguien pregunta por qué se tomó una decisión y no hay respuesta [1:28]. El modelado de datos es justamente esa base: pensar la estructura antes de construirla. SQL, por su parte, es el lenguaje que permite interactuar con esa estructura de forma eficiente.
+
+El curso está diseñado por Walter Calcaño, arquitecto de datos y premio Microsoft MVP durante siete años consecutivos [1:40]. Cada clase incluye material adicional con recursos y ejercicios para practicar de forma independiente.
+
+Si alguna vez te has sentido inseguro al entregar un reporte porque no sabes si los datos están bien cruzados, este es el punto de partida para cambiar eso. ¿Con qué tipo de datos trabajas hoy y qué problemas te gustaría resolver? Compártelo en los comentarios.
+
+
+-----------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+# 2 Conoce TiendaLatam
+
+Detrás de cada compra cotidiana se esconde un sistema capaz de registrar decenas de datos en segundos. Una clienta en Bogotá adquiere un teléfono y tres paquetes de café, y en ese instante el sistema captura quién compró, dónde, cuándo, quién la atendió, qué productos eligió, a qué precio, en qué categoría caen, qué tipo de clienta es y en qué país ocurrió [0:03]. Una sola compra, nueve piezas de información distintas. Multiplicado por 850 sucursales, miles de clientes diarios y todos los días del mes, el resultado son millones de registros. La pregunta inevitable es cómo se organiza todo sin que se convierta en un caos absoluto.
+
+¿Qué es TiendaLatam y por qué funciona como caso de estudio?
+
+TiendaLatam es una cadena de retail con presencia en doce países latinoamericanos: Argentina, Colombia, México, Chile, Perú y más [0:44]. Opera con 850 sucursales, 2.4 millones de clientes registrados y un catálogo que va desde electrónica hasta alimentos. Es una operación del tamaño de las que existen en la vida real, y toda esa actividad diaria se organiza en exactamente nueve archivos [1:23].
+
+Esos nueve archivos están en formato CSV (Comma Separated Values), es decir, valores separados por comas [1:33]. La primera fila contiene los nombres de las columnas y cada fila siguiente es un registro. Se pueden abrir con Excel, Google Sheets o cualquier editor de texto.
+
+¿Cuáles son las tablas de referencia que dan estructura al sistema?
+
+Las tres primeras tablas no guardan ventas ni movimientos. Son catálogos de referencia que el resto del sistema consulta constantemente [1:56].
+
+Tabla Países. Guarda los doce países donde opera TiendaLatam con tres columnas: un identificador único, el nombre del país y un código de dos letras (por ejemplo AR para Argentina o MX para México) [2:06].
+Tabla Categorías. Organiza los productos por tipo: electrónica, ropa, alimentos y bebidas, hogar. Solo tiene dos columnas: un identificador y el nombre de la categoría [2:32].
+Tabla Tipos de Cliente. Clasifica a los compradores en niveles: regular, premium, corporativo y VIP. Incluye un identificador, el nombre del tipo y una descripción [2:53].
+Estas tres tablas no registran lo que pasa en el negocio, sino que le dan estructura y contexto a todo lo que sí lo hace.
+
+¿Dónde ocurre la operación real del negocio?
+
+La tabla Sucursales guarda información de cada una de las 850 tiendas físicas: identificador, nombre, ciudad, dirección, país y si está activa [3:23]. Algo clave aquí es que la columna de país no almacena el nombre directamente, sino el identificador que le corresponde en la tabla Países [3:39]. Si una sucursal tiene identificador de país igual a dos y en Países el registro dos es Colombia, sabemos que esa sucursal está en Colombia. Esa columna que conecta una tabla con otra se llama clave foránea (foreign key) [4:00].
+
+La tabla Empleados almacena nombre, apellido, correo electrónico, fecha de ingreso, cargo y estado activo [4:12]. También usa una clave foránea hacia Sucursales para indicar en qué tienda trabaja cada persona.
+
+La tabla Clientes es una de las más grandes, con 2.4 millones de registros [4:36]. Contiene nombre, apellido, correo, teléfono, ciudad, fecha de registro y estado. Posee dos claves foráneas: una hacia Países y otra hacia Tipos de Cliente.
+
+La tabla Productos guarda el catálogo completo: identificador, código, nombre, categoría, precio, stock disponible, descripción y si está activo [5:00]. Su conexión con Categorías funciona igual que las anteriores.
+
+¿Por qué las ventas se separan en dos tablas?
+
+La tabla Pedidos registra cada venta: quién compró, quién atendió, en qué sucursal, cuándo ocurrió y cuánto se cobró en total [5:43]. Tiene claves foráneas hacia Clientes, Empleados y Sucursales. Sin embargo, esta tabla no guarda qué productos se compraron.
+
+De eso se encarga la tabla Detalle de Pedidos [5:11]. Por cada producto comprado en un pedido, crea una fila. Si alguien compró tres artículos, habrá tres filas apuntando al mismo pedido.
+
+¿Qué pasaría si todo estuviera en una sola tabla?
+
+Si los productos estuvieran directamente en Pedidos, habría que crear columnas como producto uno, producto dos, producto tres [6:44]. Cuando alguien compra quince artículos, nos quedamos sin columnas. Cuando compra solo uno, las demás quedan vacías. La otra opción sería duplicar la información del pedido en cada fila, pero corregir un dato significaría cambiarlo en múltiples lugares [7:00]. Un error y los datos se contradicen.
+
+Por eso la solución es separar: Pedidos guarda la información general una sola vez, y Detalle de Pedidos crea una fila por cada producto comprado [7:20]. Simple y ordenado.
+
+Un detalle importante: el precio unitario aparece tanto en Productos como en Detalle de Pedidos, y pueden ser distintos [7:32]. Los precios cambian con el tiempo, y el detalle guarda el precio exacto al momento de la venta. Así el registro histórico queda intacto aunque el precio actual sea diferente.
+
+Volviendo al ejemplo de María [7:56]: la tabla Clientes la tiene registrada, Tipos de Cliente indica que es premium, Países confirma que la compra ocurrió en Colombia, Sucursales ubica la tienda exacta, Empleados identifica al vendedor, Pedidos crea el registro general y Detalle de Pedidos genera dos filas, una por el smartphone y otra por el café, apoyándose en Productos y Categorías para clasificarlos.
+
+Eso es precisamente lo que hacen las claves foráneas: conectan las tablas entre sí para que toda la información tenga sentido como un sistema [8:52]. Sin esas conexiones, serían nueve archivos sueltos con datos que no se relacionan. Con ellas, una sola compra de cinco minutos queda registrada de forma completa, organizada y sin repetir información innecesaria.
+
+Ahora es momento de abrir los nueve archivos CSV y recorrer cada uno con tres preguntas: ¿qué guarda?, ¿qué columna lo conecta con otra tabla? y ¿puedo explicar qué representa una sola fila? Si logran responder sin mirar notas, estarán listos para lo que viene.
+
+
+
+
+
+
+
