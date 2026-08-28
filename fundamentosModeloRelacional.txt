@@ -83,6 +83,9 @@ Eso es precisamente lo que hacen las claves foráneas: conectan las tablas entre
 
 Ahora es momento de abrir los nueve archivos CSV y recorrer cada uno con tres preguntas: ¿qué guarda?, ¿qué columna lo conecta con otra tabla? y ¿puedo explicar qué representa una sola fila? Si logran responder sin mirar notas, estarán listos para lo que viene.
 
+----------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
 
 
 
